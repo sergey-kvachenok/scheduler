@@ -8,7 +8,6 @@ const Table = () => {
     return <div>Loading...</div>
   }
 
-console.log(slotInfo)
   return (
   <div className="table">
   {slotInfo.map(({slot, workers}) => <Slot slot={slot} workers={workers}/>)}

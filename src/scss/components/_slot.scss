@@ -1,5 +1,5 @@
 .slot {
-  @include box-shadow($c-gray);
+  @include box-shadow($c-light-violet);
   
   border: 1px solid $c-gray;
   border-radius: 5px;
@@ -29,7 +29,7 @@
     padding-left: 0;
   }
 .worker-container {
-  @include box-shadow($c-gray);
+  @include box-shadow($c-violet);
   
   border-radius: 5px;
   display: flex;

@@ -1,6 +1,26 @@
 .menu-wrapper {
-   background-color: aqua;
-   padding: 20px;
+   background-color: $c-violet;
+   padding: 10px 20px;
    display: flex;
    justify-content: flex-end;
+
+   .icon-wrapper {
+      height: 35px;
+    width: 35px;
+    display: flex;
+    border-radius: 50%;
+      
+      &:hover,
+      &:active {
+       background-color: $c-light-violet;
+
+       .basket-icon {
+          fill: $c-white;
+       }
+      }
+
+      .basket-icon {
+         margin: auto;
+      }
+   }
 }

@@ -2,15 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import classnames from 'classnames';
 import { addWorker } from "../../store/basketSlice";
 
-const Workers = ({workers, slotId}) => {
+const Workers = ({worker, slotId}) => {
   const dispatch = useDispatch()
   const { slots } = useSelector(({basket}) => basket || {});
   const currentSlotStoreInfo = slots.find(({id}) => id === slotId) || {};
   const currentSlotStoreWorkers = currentSlotStoreInfo?.workers || [];
- 
-  return (<div className='workers-wrapper'>
-  <ul className="list">
-  {workers.map(worker => {
+
     const {isNew, name, rating, id} = worker;
     const isButtonDisabled = currentSlotStoreWorkers.includes(id)
 
@@ -32,10 +29,6 @@ const Workers = ({workers, slotId}) => {
     >Add</button>
     </div>
     </li>)
-  })}
-  </ul>
-
-  </div> )
 }
 
 export default Workers;
