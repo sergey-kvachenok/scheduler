@@ -1,6 +1,5 @@
-@import 'settings/all',
-    'tools/all',
-    'generics/all',
-    'elements/all',
-    'objects/all',
-    'components/all'
+@import 'settings/all', 'tools/all', 'generics/all', 'elements/all', 'objects/all', 'components/all';
+
+body {
+  font-family: $font-lato;
+}

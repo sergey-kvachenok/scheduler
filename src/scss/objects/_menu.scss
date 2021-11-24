@@ -14,7 +14,8 @@
     width: 35px;
 
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
       background-color: $c-light-violet;
 
       .basket-icon {
@@ -23,6 +24,7 @@
     }
 
     .basket-icon {
+      outline: none;
       margin: auto;
     }
   }

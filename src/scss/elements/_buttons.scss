@@ -16,7 +16,8 @@
   color: $c-white;
 
   &:hover,
-  &:active {
+  &:active,
+  &:focus {
     background-color: $c-light-violet;
   }
 }

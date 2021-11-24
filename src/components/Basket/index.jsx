@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Item from './Item';
+import { ReactComponent as ArrowIcon } from '../../assets/icons/arrow-left.svg';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -12,6 +13,23 @@ const Container = styled.div`
     align-items: center;
     border-bottom: 4px solid ${({ theme }) => theme.colors.coral};
     margin-bottom: 25px;
+  }
+
+  .back-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:hover {
+      svg {
+        fill: ${({ theme }) => theme.colors.white};
+      }
+    }
+
+    .text {
+      font-size: 16px;
+      margin-left: 5px;
+    }
   }
 `;
 
@@ -56,8 +74,9 @@ const Basket = () => {
 
   return (
     <Container>
-      <button onClick={moveBack} className="default-button secondary">
-        Back
+      <button data-testid="back-button" onClick={moveBack} className="default-button secondary back-button">
+        <ArrowIcon />
+        <span className="text">Back</span>
       </button>
       <h3 className="header">Slots to purchasing</h3>
       {content}

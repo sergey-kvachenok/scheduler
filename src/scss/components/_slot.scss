@@ -17,6 +17,10 @@
     box-shadow: none;
     cursor: pointer;
   }
+
+  div:first-child {
+    margin-bottom: 5px;
+  }
 }
 
 //  02. Booking Panel
@@ -47,5 +51,17 @@
     justify-content: space-between;
     margin-bottom: 20px;
     padding: 10px;
+  }
+
+  .low {
+    color: $c-red;
+  }
+
+  .middle {
+    color: $c-orange;
+  }
+
+  .high {
+    color: $c-green;
   }
 }

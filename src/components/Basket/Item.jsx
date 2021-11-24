@@ -46,6 +46,7 @@ const WorkersContainer = styled.ul`
   }
 
   .trash-icon {
+    cursor: pointer;
     fill: ${({ theme }) => theme.colors.coral};
 
     &:hover,
@@ -127,7 +128,7 @@ const Item = ({ slot, workers }) => {
           Total per slot: <span className="price">£{total}</span>
         </div>
       </Wrapper>
-      <Popup isOpened={isPopupOpen} closePopup={closePopup}>
+      <Popup isOpened={isPopupOpen} onClose={closePopup}>
         <Confirmation
           text={`Would you like to delete the current ${deleletionInfo?.entity}`}
           cancel={closePopup}

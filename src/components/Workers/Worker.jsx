@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
 import { addWorker } from '../../store/basketSlice';
 
-const Worker = ({ worker, slotId }) => {
+const Worker = ({ worker, slotId, tabIndex }) => {
   const dispatch = useDispatch();
   const { slots } = useSelector(({ basket }) => basket || {});
   const currentSlotStoreInfo = slots.find(({ id }) => id === slotId) || {};
@@ -15,10 +15,22 @@ const Worker = ({ worker, slotId }) => {
     <li data-testid="worker" key={id} className="list-item worker-container">
       <div className="info">
         <div className="name">{name}</div>
-        <div className="raiting">{rating}</div>
+        <div className="raiting">
+          Rating:{' '}
+          <span
+            className={classnames({
+              low: rating <= 3,
+              middle: rating > 3 && rating <= 4,
+              high: rating > 4,
+            })}
+          >
+            {rating}
+          </span>
+        </div>
       </div>
       <div className="manage">
         <button
+          tabIndex={tabIndex}
           data-testid="add-worker"
           className={classnames('default-button', 'add-worker', {
             primary: !isButtonDisabled,

@@ -1,0 +1,16 @@
+$font-default: helvetica, arial, sans-serif;
+$font-name-lato: 'Lato-Regular';
+$font-name-lato-bold: 'Lato-Bold';
+
+@font-face {
+  font-family: $font-name-lato;
+  src: url('./../../assets/fonts/lato-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: $font-name-lato-bold;
+  src: url('./../../assets/fonts/lato-bold.woff2') format('woff2');
+}
+
+$font-lato: $font-name-lato, $font-default;
+$font-lato-bold: $font-name-lato-bold, $font-default;
