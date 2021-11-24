@@ -1,0 +1,41 @@
+.slot {
+  @include box-shadow($c-gray);
+  
+  border: 1px solid $c-gray;
+  border-radius: 5px;
+  padding: 15px;
+
+  &:hover,
+  &:active {
+    cursor: pointer;
+    box-shadow: none;
+  }
+}
+
+.booking-panel {
+  border-radius: 5px;
+  background-color: $c-white;
+  max-width: 600px;
+  width: 100%;
+  z-index: 2;
+}
+
+.workers-wrapper {
+  max-height: 600px;
+  padding: 20px;
+  overflow: auto;
+
+  .list {
+    padding-left: 0;
+  }
+.worker-container {
+  @include box-shadow($c-gray);
+  
+  border-radius: 5px;
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+}

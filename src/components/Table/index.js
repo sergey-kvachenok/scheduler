@@ -1,0 +1,19 @@
+import useSlotInfo from '../../hooks/useSlotInfo'
+import Slot from './Slot';
+
+const Table = () => {
+  const [slotInfo, isFetching, error] = useSlotInfo();
+
+  if (!slotInfo) {
+    return <div>Loading...</div>
+  }
+
+console.log(slotInfo)
+  return (
+  <div className="table">
+  {slotInfo.map(({slot, workers}) => <Slot slot={slot} workers={workers}/>)}
+  </div>
+  )
+}
+
+export default Table
