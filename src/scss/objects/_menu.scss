@@ -1,26 +1,29 @@
+// -----------------------------------------------------------------------------
+//  Objects > Menu
+// -----------------------------------------------------------------------------
 .menu-wrapper {
-   background-color: $c-violet;
-   padding: 10px 20px;
-   display: flex;
-   justify-content: flex-end;
+  background-color: $c-violet;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
 
-   .icon-wrapper {
-      height: 35px;
-    width: 35px;
-    display: flex;
+  .icon-wrapper {
     border-radius: 50%;
-      
-      &:hover,
-      &:active {
-       background-color: $c-light-violet;
+    display: flex;
+    height: 35px;
+    width: 35px;
 
-       .basket-icon {
-          fill: $c-white;
-       }
-      }
+    &:hover,
+    &:active {
+      background-color: $c-light-violet;
 
       .basket-icon {
-         margin: auto;
+        fill: $c-white;
       }
-   }
+    }
+
+    .basket-icon {
+      margin: auto;
+    }
+  }
 }

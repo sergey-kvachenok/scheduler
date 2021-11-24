@@ -10,7 +10,7 @@ const Table = () => {
 
   return (
   <div className="table">
-  {slotInfo.map(({slot, workers}) => <Slot slot={slot} workers={workers}/>)}
+  {slotInfo.map(({slot, workers}) => <Slot key={slot.id} slot={slot} workers={workers}/>)}
   </div>
   )
 }

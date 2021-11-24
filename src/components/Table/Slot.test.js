@@ -1,14 +1,9 @@
 import {Provider, useSelector, useDispatch } from 'react-redux';
 import {render, fireEvent} from '@testing-library/react';
 import Slot from './Slot';
+import {slot, workers} from '../../testUtils/constants'
 
 import store from '../../store';
-
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useSelector: jest.fn(),
-  useDispatch: jest.fn()
-}));
 
 describe('Slot', () => {
     const state = {
@@ -33,33 +28,6 @@ describe('Slot', () => {
     useDispatch.mockClear();
     useSelector.mockClear();
   });
-
-    const slot = {
-        "id": 1,
-        "localisedTime": "12:00",
-        "price": "£81.00"
-    }
-
-    const workers = [
-        {
-            "id": 1,
-            "name": "Maxwell Smith",
-            "rating": "4.1",
-            "isNew": false
-        },
-        {
-            "id": 2,
-            "name": "Ellouise Riddle",
-            "rating": "4.6",
-            "isNew": true
-        },
-        {
-            "id": 7,
-            "name": "Usaamah Mccall",
-            "rating": "5",
-            "isNew": false
-        }
-    ]
 
   it('should render slot information', () => {
     const {getByText} = render(

@@ -1,22 +1,25 @@
+// -----------------------------------------------------------------------------
+//  Objects > Popup
+// -----------------------------------------------------------------------------
 .popup-wrapper {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  top: 0;
-  right: 0;
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items:center;
   padding: 40px;
-z-index: 1
+  position: fixed;
+  z-index: $z-popup-wrapper;
 }
 
 .popup-overlay {
+  background-color: $c-popup-overlay;
   cursor: pointer;
   position: absolute;
-   bottom: 0;
+}
+
+.popup-overlay,
+.popup-wrapper {
+  bottom: 0;
   left: 0;
-  top: 0;
   right: 0;
-  background-color: rgba(0,0,0,0.6)
+  top: 0;
 }

@@ -1,41 +1,51 @@
+// -----------------------------------------------------------------------------
+//  Components > Slot
+//  01. Slot
+//  02. Booking Panel
+//  03. Workers
+// -----------------------------------------------------------------------------
+//  01. Slot
 .slot {
   @include box-shadow($c-light-violet);
-  
+
   border: 1px solid $c-gray;
   border-radius: 5px;
   padding: 15px;
 
   &:hover,
   &:active {
-    cursor: pointer;
     box-shadow: none;
+    cursor: pointer;
   }
 }
 
+//  02. Booking Panel
 .booking-panel {
-  border-radius: 5px;
   background-color: $c-white;
+  border-radius: 5px;
   max-width: 600px;
   width: 100%;
   z-index: 2;
 }
 
+//  03. Workers
 .workers-wrapper {
   max-height: 600px;
-  padding: 20px;
   overflow: auto;
+  padding: 20px;
 
   .list {
     padding-left: 0;
   }
-.worker-container {
-  @include box-shadow($c-violet);
-  
-  border-radius: 5px;
-  display: flex;
-  margin-bottom: 20px;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-}
+
+  .worker-container {
+    @include box-shadow($c-violet);
+
+    align-items: center;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
 }

@@ -5,36 +5,26 @@
 //  02. Small screen / tablet
 //  03. Medium screen / tablet horizontal orientation
 //  04. Desktop
-//  05. Large Desktop
-//  06. Provide a maximum, so media queries don't overlap when required
-//  07. Hover
+//  05. Provide a maximum, so media queries don't overlap when required
 //  -----------------------------------------------------------------------------
 
 //  01. Extra small screen
-$screen-xs:                  450px;
-$screen-xs-min:              $screen-xs;
+$screen-xs: 450px;
+$screen-xs-min: $screen-xs;
 
 //  02. Small screen / tablet
-$screen-sm:                  768px;
-$screen-sm-min:              $screen-sm;
+$screen-sm: 768px;
+$screen-sm-min: $screen-sm;
 
 //  03. Medium screen / tablet horizontal orientation
-$screen-md:                  1024px;
-$screen-md-min:              $screen-md;
+$screen-md: 1024px;
+$screen-md-min: $screen-md;
 
 //  04. Desktop
-$screen-lg:                  1200px;
-$screen-lg-min:              $screen-lg;
+$screen-lg: 1200px;
+$screen-lg-min: $screen-lg;
 
-//  05. Large Desktop
-$screen-xlg:                  1440px;
-$screen-xlg-min:              $screen-xlg;
-
-//  06. Provide a maximum, so media queries don't overlap when required
-$screen-xs-max:              ($screen-sm-min - 1);
-$screen-sm-max:              ($screen-md-min - 1);
-$screen-md-max:              ($screen-lg-min - 1);
-$screen-lg-max:              ($screen-xlg-min - 1);
-
-//  07. Hover
-$hover: hover;
+//  05. Provide a maximum, so media queries don't overlap when required
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-sm-max: ($screen-md-min - 1);
+$screen-md-max: ($screen-lg-min - 1);

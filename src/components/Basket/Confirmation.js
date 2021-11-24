@@ -22,8 +22,8 @@ const Confirmation = ({text, confirm, cancel}) => {
 
   return (<Container>
   <h2>{text}</h2>
-  <button className="default-button confirmation primary" onClick={confirm}>Confirm</button>
-  <button className="default-button secondary" onClick={cancel}>Cancel</button>
+  <button data-testid="submit-button" className="default-button confirmation primary" onClick={confirm}>Confirm</button>
+  <button data-testid="cancel-button" className="default-button secondary" onClick={cancel}>Cancel</button>
   </Container>)
 }
 

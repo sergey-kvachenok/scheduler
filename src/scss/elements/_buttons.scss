@@ -1,34 +1,37 @@
+// -----------------------------------------------------------------------------
+//  Elements > Buttons
+// -----------------------------------------------------------------------------
 .default-button {
-  font-size: 13px;
-  outline: none;
+  background-color: transparent;
   border: none;
   border-radius: 5px;
-  padding: 10px;
   cursor: pointer;
-  background-color: transparent;
+  font-size: 13px;
+  outline: none;
+  padding: 10px;
 }
 
 .primary {
-  color: $c-white;
   background-color: $c-violet;
+  color: $c-white;
 
   &:hover,
   &:active {
-    background-color: $c-light-violet
+    background-color: $c-light-violet;
   }
 }
 
 .secondary {
- border: 1px solid $c-gray;
+  border: 1px solid $c-gray;
 
- &:hover,
+  &:hover,
   &:active {
+    background-color: $c-light-violet;
     color: $c-white;
-    background-color: $c-light-violet
   }
 }
 
 .disabled {
-  color: $c-white;
   background-color: $c-gray;
+  color: $c-white;
 }
