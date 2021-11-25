@@ -27,7 +27,7 @@ describe('Scheduler', () => {
     // add workers to the basket
     workersToAdd.forEach(name => {
       const panel = cy.get('[data-testid=worker]').filter(`:contains("${name}")`);
-      const addButton = panel.find('.add-worker');
+      const addButton = panel.find('[data-testid=add-worker]');
       addButton.should('have.class', 'primary');
       addButton.click({ force: true });
 

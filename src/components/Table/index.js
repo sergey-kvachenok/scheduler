@@ -1,21 +1,29 @@
 import useSlotInfo from '../../hooks/useSlotInfo';
 import Slot from './Slot';
+import Error from '../common/Error';
+import Spinner from '../common/Spinner';
 
 const Table = () => {
   const [slotInfo, isFetching, error] = useSlotInfo();
 
-  if (!slotInfo) {
-    return <div>Loading...</div>;
+  if (isFetching) {
+    return <Spinner loadingText="Loading available slots..." />;
   }
+
+  const content = error ? (
+    <Error message={error?.message} />
+  ) : (
+    <div className="table">
+      {slotInfo.map(({ slot, workers }, index) => (
+        <Slot key={slot.id} slot={slot} workers={workers} />
+      ))}
+    </div>
+  );
 
   return (
     <>
       <h2>Available Slots</h2>
-      <div className="table">
-        {slotInfo.map(({ slot, workers }, index) => (
-          <Slot tabIndex={index + 1} key={slot.id} slot={slot} workers={workers} />
-        ))}
-      </div>
+      {content}
     </>
   );
 };

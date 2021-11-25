@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
 import { addWorker } from '../../store/basketSlice';
 
-const Worker = ({ worker, slotId, tabIndex }) => {
+const Worker = ({ worker, slotId }) => {
   const dispatch = useDispatch();
   const { slots } = useSelector(({ basket }) => basket || {});
   const currentSlotStoreInfo = slots.find(({ id }) => id === slotId) || {};
@@ -30,9 +30,9 @@ const Worker = ({ worker, slotId, tabIndex }) => {
       </div>
       <div className="manage">
         <button
-          tabIndex={tabIndex}
           data-testid="add-worker"
-          className={classnames('default-button', 'add-worker', {
+          aria-label="Add worker to the basket"
+          className={classnames('default-button', {
             primary: !isButtonDisabled,
             disabled: isButtonDisabled,
           })}

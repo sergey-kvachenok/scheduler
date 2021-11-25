@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { ReactComponent as TrashIcon } from '../../assets/icons/trash-bin.svg';
 import { removeSlot, removeWorker } from '../../store/basketSlice';
 import Confirmation from './Confirmation';
-import Popup from '../Popup';
+import Spinner from '../common/Spinner';
+import { keyCodes } from '../../constants';
+
+const Popup = lazy(() => import('../Popup'));
 
 const Wrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
@@ -51,6 +54,7 @@ const WorkersContainer = styled.ul`
 
     &:hover,
     &:active {
+      outline: none;
       fill: ${({ theme }) => theme.colors.red};
     }
   }
@@ -89,12 +93,24 @@ const Item = ({ slot, workers }) => {
     setPopupOpen(false);
   };
 
+  const handleKeyPress = (event, id) => {
+    const { keyCode } = event;
+
+    if (keyCode === keyCodes.SPACE || keyCode === keyCodes.ENTER) {
+      openPopup(id, 'worker');
+    }
+  };
+
   const workersContent = workers.map(({ name, id }) => (
     <li key={id} className="worker">
       <div className="name">{name}</div>
       <TrashIcon
+        tabindex="0"
+        role="button"
+        aria-label="Remove worker from the basket"
         data-testid="remove-worker"
         className="remove-button trash-icon"
+        onKeyDown={event => handleKeyPress(event, id)}
         onClick={() => {
           openPopup(id, 'worker');
         }}
@@ -112,6 +128,7 @@ const Item = ({ slot, workers }) => {
           </div>
           <button
             data-testid="remove-slot"
+            aria-label="Remove slot with all workers from the basket"
             className="default-button remove-button primary"
             onClick={() => {
               openPopup(slot.id, 'slot');
@@ -128,13 +145,16 @@ const Item = ({ slot, workers }) => {
           Total per slot: <span className="price">£{total}</span>
         </div>
       </Wrapper>
-      <Popup isOpened={isPopupOpen} onClose={closePopup}>
-        <Confirmation
-          text={`Would you like to delete the current ${deleletionInfo?.entity}`}
-          cancel={closePopup}
-          confirm={deleteEntity}
-        />
-      </Popup>
+
+      <Suspense fallback={<Spinner />}>
+        <Popup isOpened={isPopupOpen} onClose={closePopup}>
+          <Confirmation
+            text={`Would you like to delete the current ${deleletionInfo?.entity}`}
+            cancel={closePopup}
+            confirm={deleteEntity}
+          />
+        </Popup>
+      </Suspense>
     </>
   );
 };

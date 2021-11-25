@@ -6,7 +6,7 @@ const Menu = () => {
     <div className="menu-wrapper">
       <NavLink to="/basket">
         <div className="icon-wrapper">
-          <BasketIcon tabIndex="0" className="basket-icon" />
+          <BasketIcon className="basket-icon" />
         </div>
       </NavLink>
     </div>

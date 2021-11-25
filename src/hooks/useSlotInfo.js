@@ -8,13 +8,12 @@ const requests = [axios.get('/slots.json'), axios.get('/workers.json'), axios.ge
 const useSlotInfo = () => {
   const dispatch = useDispatch();
   const [slotInfo, setSlotInfo] = useState(null);
-  const [isFetching, setFetching] = useState(false);
+  const [isFetching, setFetching] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        setFetching(true);
         const [{ data: slotsData }, { data: workersData }, { data: availableData }] = await Promise.all(requests);
 
         const available = availableData['available-workers'] || {};

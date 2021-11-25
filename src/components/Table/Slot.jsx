@@ -1,9 +1,12 @@
+import { lazy, Suspense } from 'react';
 import { useState } from 'react';
 import isEmpty from 'lodash.isempty';
-import Popup from '../Popup';
 import Workers from '../Workers';
+import Spinner from '../common/Spinner';
 
-const Slot = ({ slot, workers, tabIndex }) => {
+const Popup = lazy(() => import('../Popup'));
+
+const Slot = ({ slot, workers }) => {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const { price, localisedTime } = slot || {};
 
@@ -21,7 +24,7 @@ const Slot = ({ slot, workers, tabIndex }) => {
 
   return (
     <>
-      <button tabIndex={tabIndex} data-testid="slot" className="default-button slot" onClick={openPopup}>
+      <button data-testid="slot" className="default-button slot" onClick={openPopup}>
         <div>
           Time: <span className="price">{localisedTime}</span>
         </div>
@@ -30,11 +33,13 @@ const Slot = ({ slot, workers, tabIndex }) => {
         </div>
       </button>
 
-      <Popup isOpened={isPopupOpen} onClose={closePopup}>
-        <div className="booking-panel">
-          <Workers workers={workers} slotId={slot.id} />
-        </div>
-      </Popup>
+      <Suspense fallback={<Spinner />}>
+        <Popup isOpened={isPopupOpen} onClose={closePopup}>
+          <div className="booking-panel">
+            <Workers workers={workers} slotId={slot.id} />
+          </div>
+        </Popup>
+      </Suspense>
     </>
   );
 };

@@ -67,6 +67,7 @@ describe('Basket Item', () => {
     const submitButton = await findByTestId('submit-button');
     expect(submitButton).toBeInTheDocument();
     fireEvent.click(submitButton);
+
     expect(mockedDispatch).toHaveBeenCalledWith(dispatchData);
   });
 
@@ -96,6 +97,7 @@ describe('Basket Item', () => {
     const submitButton = await findByTestId('submit-button');
     expect(submitButton).toBeInTheDocument();
     fireEvent.click(submitButton);
+
     expect(mockedDispatch).toHaveBeenCalledWith(dispatchData);
   });
 
@@ -119,7 +121,9 @@ describe('Basket Item', () => {
     const cancelButton = await findByTestId('cancel-button');
     expect(cancelButton).toBeInTheDocument();
     fireEvent.click(cancelButton);
+
     expect(mockedDispatch).not.toHaveBeenCalled();
+
     const popupText = queryByText(confirmationPopupText);
     expect(popupText).not.toBeInTheDocument();
   });

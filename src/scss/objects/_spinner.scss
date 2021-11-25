@@ -1,0 +1,46 @@
+// -----------------------------------------------------------------------------
+//  Spinner Loader
+// -----------------------------------------------------------------------------
+//  01. Generic styles
+//  03. Animation
+// -----------------------------------------------------------------------------
+
+//  01. Generic styles
+.spinner-and-text {
+  .spinner-container {
+    padding: 25px;
+
+    .spinner,
+    .spinner::after {
+      border-radius: 50%;
+      height: 4em;
+      width: 4em;
+    }
+
+    .spinner {
+      animation: spinner_animation 1.1s infinite linear;
+      border-bottom: 0.6em solid rgba($c-gray, 0.3);
+      border-left: 0.6em solid $c-violet;
+      border-right: 0.6em solid rgba($c-gray, 0.3);
+      border-top: 0.6em solid rgba($c-gray, 0.3);
+      margin: auto;
+    }
+  }
+
+  .loading-text {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+  }
+}
+
+//  03. Animation
+@keyframes spinner_animation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
