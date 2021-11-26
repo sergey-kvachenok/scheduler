@@ -1,13 +1,20 @@
-import { Provider, useSelector, useDispatch } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
-import { render, fireEvent } from '@testing-library/react';
-import Item from './Item';
-import { theme } from '../../constants/theme';
-import { slot, workers } from '../../testUtils/constants';
-
-import store from '../../store';
+// libraries
+import { useSelector, useDispatch } from 'react-redux';
+import { fireEvent } from '@testing-library/react';
+// components
+import Item from '.';
+// constants
+import basket from '../../../translations/en/basket.json';
+import common from '../../../translations/en/common.json';
+import { slot, workers } from '../../../utils/testUtils/constants';
+// utils
+import renderWithProviders from '../../../utils/testUtils/renderWithProviders';
 
 describe('Basket Item', () => {
+  const deleteSlotConfirmation = 'Would you like to delete 12:00 slot with all workers from the basket?';
+  const deleteWorkerConfirmation = 'Would you like to delete Maxwell Smith from the slot?';
+
+  const currentWorkers = workers.slice(0, 3);
   const state = {
     basket: {
       slots: [{ id: 5, workers: [6] }],
@@ -29,13 +36,16 @@ describe('Basket Item', () => {
   });
 
   it('should render slot information', () => {
-    const { getByText } = render(
-      <ThemeProvider theme={theme}>
-        <Item slot={slot} workers={workers} />
-      </ThemeProvider>,
-    );
+    const { getByText } = renderWithProviders(<Item slot={slot} workers={currentWorkers} />);
 
-    const text = ['Time: 12:00', 'Price per person:', '£81.00', 'You have booked:', 'Total per slot:', '£243'];
+    const text = [
+      `${common.time} ${slot.localisedTime}`,
+      basket.pricePerPerson,
+      slot.price,
+      basket.booked,
+      basket.totalPerSlot,
+      '£243',
+    ];
 
     text.forEach(item => {
       expect(getByText(item)).toBeVisible();
@@ -43,12 +53,8 @@ describe('Basket Item', () => {
   });
 
   it('should render the Remove slot button and dispatch the event', async () => {
-    const { findAllByTestId, findByTestId, getByText } = render(
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <Item slot={slot} workers={workers} />
-        </Provider>
-      </ThemeProvider>,
+    const { findAllByTestId, findByTestId, getByText } = renderWithProviders(
+      <Item slot={slot} workers={currentWorkers} />,
     );
 
     const dispatchData = {
@@ -62,7 +68,7 @@ describe('Basket Item', () => {
     const removeFirstSlotButton = removeSlotButtons[0];
     fireEvent.click(removeFirstSlotButton);
 
-    expect(getByText('Would you like to delete the current slot')).toBeVisible();
+    expect(getByText(deleteSlotConfirmation)).toBeVisible();
 
     const submitButton = await findByTestId('submit-button');
     expect(submitButton).toBeInTheDocument();
@@ -72,12 +78,8 @@ describe('Basket Item', () => {
   });
 
   it('should render the Remove worker button and dispatch the event', async () => {
-    const { findAllByTestId, getByText, findByTestId } = render(
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <Item slot={slot} workers={workers} />
-        </Provider>
-      </ThemeProvider>,
+    const { findAllByTestId, getByText, findByTestId } = renderWithProviders(
+      <Item slot={slot} workers={currentWorkers} />,
     );
 
     const dispatchData = {
@@ -92,7 +94,7 @@ describe('Basket Item', () => {
     const removeFirstWorkerButton = removeWorkerButtons[0];
     fireEvent.click(removeFirstWorkerButton);
 
-    expect(getByText('Would you like to delete the current worker')).toBeVisible();
+    expect(getByText(deleteWorkerConfirmation)).toBeVisible();
 
     const submitButton = await findByTestId('submit-button');
     expect(submitButton).toBeInTheDocument();
@@ -102,21 +104,15 @@ describe('Basket Item', () => {
   });
 
   it('should render the Remove worker button and not dispatch the event when cancel clicked', async () => {
-    const { findAllByTestId, getByText, findByTestId, queryByText } = render(
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <Item slot={slot} workers={workers} />
-        </Provider>
-      </ThemeProvider>,
+    const { findAllByTestId, getByText, findByTestId, queryByText } = renderWithProviders(
+      <Item slot={slot} workers={currentWorkers} />,
     );
 
     const removeWorkerButtons = await findAllByTestId('remove-worker');
     const removeFirstWorkerButton = removeWorkerButtons[0];
     fireEvent.click(removeFirstWorkerButton);
 
-    const confirmationPopupText = 'Would you like to delete the current worker';
-
-    expect(getByText(confirmationPopupText)).toBeVisible();
+    expect(getByText(deleteWorkerConfirmation)).toBeVisible();
 
     const cancelButton = await findByTestId('cancel-button');
     expect(cancelButton).toBeInTheDocument();
@@ -124,7 +120,7 @@ describe('Basket Item', () => {
 
     expect(mockedDispatch).not.toHaveBeenCalled();
 
-    const popupText = queryByText(confirmationPopupText);
+    const popupText = queryByText(deleteWorkerConfirmation);
     expect(popupText).not.toBeInTheDocument();
   });
 });

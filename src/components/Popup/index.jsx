@@ -1,4 +1,6 @@
+// components
 import Portal from '../common/Portal';
+// constants
 import { keyCodes } from '../../constants';
 
 const Popup = ({ children, onClose, isOpened }) => {
@@ -16,7 +18,7 @@ const Popup = ({ children, onClose, isOpened }) => {
 
   return (
     <Portal>
-      <div className="popup-wrapper" role="dialog" aria-labelledby="List of available workers for the current slot">
+      <div className="popup-wrapper" role="dialog">
         <div
           className="popup-overlay"
           role="button"

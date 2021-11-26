@@ -1,14 +1,19 @@
-import { Provider, useSelector, useDispatch } from 'react-redux';
-import { render, fireEvent } from '@testing-library/react';
-import Slot from './Slot';
-import { slot, workers } from '../../testUtils/constants';
-
-import store from '../../store';
+// libraries
+import { useSelector, useDispatch } from 'react-redux';
+import { fireEvent } from '@testing-library/react';
+// components
+import Slot from '.';
+// constants
+import common from '../../../translations/en/common.json';
+import { slot, workers } from '../../../utils/testUtils/constants';
+// utils
+import renderWithProviders from '../../../utils/testUtils/renderWithProviders';
 
 describe('Slot', () => {
+  const currentWorkers = workers.slice(0, 3);
   const state = {
     basket: {
-      slots: [{ id: 5, workers: [6] }],
+      slots: [{ id: 5, currentWorkers: [2] }],
     },
   };
 
@@ -27,9 +32,9 @@ describe('Slot', () => {
   });
 
   it('should render slot information', () => {
-    const { getByText } = render(<Slot slot={slot} workers={workers} />);
+    const { getByText } = renderWithProviders(<Slot slot={slot} workers={currentWorkers} />);
 
-    const text = ['Time:', '12:00', 'Price:', '£81.00'];
+    const text = [common.time, slot.localisedTime, common.price, slot.price];
 
     text.forEach(item => {
       expect(getByText(item)).toBeVisible();
@@ -37,31 +42,22 @@ describe('Slot', () => {
   });
 
   it('should render workers popup', async () => {
-    const { findAllByTestId, getByTestId } = render(
-      <Provider store={store}>
-        <Slot slot={slot} workers={workers} />
-      </Provider>,
-    );
+    const { findAllByTestId, getByTestId } = renderWithProviders(<Slot slot={slot} workers={currentWorkers} />);
 
     const popupButton = getByTestId('slot');
-
     fireEvent.click(popupButton);
+
     const popupWorkers = await findAllByTestId('worker');
-    expect(popupWorkers.length).toBe(3);
+    expect(popupWorkers.length).toBe(currentWorkers.length);
+
     const firstWorker = workers[0];
-
     const firstWorkerNodeText = popupWorkers[0]?.textContent;
-
     expect(firstWorkerNodeText.includes(firstWorker.name)).toBeTruthy();
     expect(firstWorkerNodeText.includes(firstWorker.rating)).toBeTruthy();
   });
 
   it('should render the Add button and dispatch the worker', async () => {
-    const { findAllByTestId, getByTestId } = render(
-      <Provider store={store}>
-        <Slot slot={slot} workers={workers} />
-      </Provider>,
-    );
+    const { findAllByTestId, getByTestId } = renderWithProviders(<Slot slot={slot} workers={currentWorkers} />);
 
     const dispatchData = {
       payload: {
@@ -72,9 +68,10 @@ describe('Slot', () => {
     };
 
     const popupButton = getByTestId('slot');
-
     fireEvent.click(popupButton);
+
     const addButtons = await findAllByTestId('add-worker');
+
     const addFirstWorkerButton = addButtons[0];
     fireEvent.click(addFirstWorkerButton);
     expect(mockedDispatch).toHaveBeenCalledWith(dispatchData);

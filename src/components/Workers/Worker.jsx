@@ -1,22 +1,36 @@
+// libraries
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
-import { addWorker } from '../../store/basketSlice';
+// components
+import { addWorker, removeWorker } from '../../store/basketSlice';
 
 const Worker = ({ worker, slotId }) => {
+  const { t } = useTranslation('slots');
   const dispatch = useDispatch();
+
   const { slots } = useSelector(({ basket }) => basket || {});
   const currentSlotStoreInfo = slots.find(({ id }) => id === slotId) || {};
   const currentSlotStoreWorkers = currentSlotStoreInfo?.workers || [];
 
   const { isNew, name, rating, id } = worker;
-  const isButtonDisabled = currentSlotStoreWorkers.includes(id);
+  const isWorkerInBasket = currentSlotStoreWorkers.includes(id);
+
+  const buttonLabel = isWorkerInBasket ? 'Remove' : 'Add';
+
+  const handleButtonClick = () => {
+    const params = { slotId, workerId: id };
+    const handler = isWorkerInBasket ? removeWorker : addWorker;
+
+    dispatch(handler(params));
+  };
 
   return (
     <li data-testid="worker" key={id} className="list-item worker-container">
-      <div className="info">
-        <div className="name">{name}</div>
-        <div className="raiting">
-          Rating:{' '}
+      <div>
+        <div>{name}</div>
+        <div className="secondary-text rating">
+          {`${t('workers.rating')} `}
           <span
             className={classnames({
               low: rating <= 3,
@@ -28,20 +42,18 @@ const Worker = ({ worker, slotId }) => {
           </span>
         </div>
       </div>
+
       <div className="manage">
         <button
           data-testid="add-worker"
           aria-label="Add worker to the basket"
           className={classnames('default-button', {
-            primary: !isButtonDisabled,
-            disabled: isButtonDisabled,
+            primary: !isWorkerInBasket,
+            secondary: isWorkerInBasket,
           })}
-          disabled={isButtonDisabled}
-          onClick={() => {
-            dispatch(addWorker({ slotId, workerId: id }));
-          }}
+          onClick={handleButtonClick}
         >
-          Add
+          {buttonLabel}
         </button>
       </div>
     </li>

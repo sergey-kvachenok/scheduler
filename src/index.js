@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import './scss/index.scss';
 import store, { persistor } from './store';
 import { theme } from './constants/theme';
+import './utils/i18n';
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

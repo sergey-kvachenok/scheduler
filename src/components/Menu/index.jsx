@@ -1,4 +1,6 @@
+// libraries
 import { NavLink } from 'react-router-dom';
+// components
 import { ReactComponent as BasketIcon } from '../../assets/icons/basket.svg';
 
 const Menu = () => {

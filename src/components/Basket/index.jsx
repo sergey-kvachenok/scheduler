@@ -1,6 +1,9 @@
+// libraries
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+// components
 import Item from './Item';
 import { ReactComponent as ArrowIcon } from '../../assets/icons/arrow-left.svg';
 
@@ -8,28 +11,27 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 500px;
   width: 100%;
+`;
 
-  .header {
-    align-items: center;
-    border-bottom: 4px solid ${({ theme }) => theme.colors.coral};
-    margin-bottom: 25px;
+const Button = styled.button`
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  svg {
+    height: 16px;
+    width: 16px;
   }
 
-  .back-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    &:hover {
-      svg {
-        fill: ${({ theme }) => theme.colors.white};
-      }
+  &:hover {
+    svg {
+      fill: ${({ theme }) => theme.colors.white};
     }
+  }
 
-    .text {
-      font-size: 16px;
-      margin-left: 5px;
-    }
+  .text {
+    font-size: 16px;
+    margin-left: 5px;
   }
 `;
 
@@ -56,6 +58,7 @@ const getSlotInfo = (slots, combinedSlotData) => {
 };
 
 const Basket = () => {
+  const { t } = useTranslation(['basket', 'common']);
   const navigate = useNavigate();
   const { data = [] } = useSelector(({ tableInfo }) => tableInfo || {});
   const { slots = [] } = useSelector(({ basket }) => basket || {});
@@ -69,18 +72,20 @@ const Basket = () => {
   const content = slotInfo?.length ? (
     slotInfo?.map(({ slot, workers }) => <Item key={slot?.id} slot={slot} workers={workers} />)
   ) : (
-    <p>You basket is still empty</p>
+    <p>{t('emptyBasket')}</p>
   );
 
   return (
-    <Container>
-      <button data-testid="back-button" onClick={moveBack} className="default-button secondary back-button">
+    <>
+      <Button data-testid="back-button" onClick={moveBack} className="default-button secondary">
         <ArrowIcon />
-        <span className="text">Back</span>
-      </button>
-      <h3 className="header">Slots to purchasing</h3>
-      {content}
-    </Container>
+        <span className="text">{t('common:back')}</span>
+      </Button>
+      <Container>
+        <h1 className="page-title header">{t('header')}</h1>
+        {content}
+      </Container>
+    </>
   );
 };
 

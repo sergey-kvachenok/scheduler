@@ -1,12 +1,15 @@
-import { lazy, Suspense } from 'react';
-import { useState } from 'react';
+// libraries
+import { lazy, Suspense, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash.isempty';
-import Workers from '../Workers';
-import Spinner from '../common/Spinner';
+// components
+import Workers from '../../Workers';
+import Spinner from '../../common/Spinner';
 
-const Popup = lazy(() => import('../Popup'));
+const Popup = lazy(() => import('../../Popup'));
 
 const Slot = ({ slot, workers }) => {
+  const { t } = useTranslation(['slots', 'common']);
   const [isPopupOpen, setPopupOpen] = useState(false);
   const { price, localisedTime } = slot || {};
 
@@ -24,12 +27,12 @@ const Slot = ({ slot, workers }) => {
 
   return (
     <>
-      <button data-testid="slot" className="default-button slot" onClick={openPopup}>
+      <button aria-label="Time slot" data-testid="slot" className="default-button slot" onClick={openPopup}>
         <div>
-          Time: <span className="price">{localisedTime}</span>
+          {t('common:time')} <span className="price">{localisedTime}</span>
         </div>
         <div>
-          Price: <span className="price">{price}</span>
+          {t('common:price')} <span className="price">{price}</span>
         </div>
       </button>
 

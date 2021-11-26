@@ -1,7 +1,11 @@
+// libraries
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
+// helpers
+import { getCombinedData } from '../helpers/receiveData';
+// utils
 import { setTableInfo } from '../store/tableSlice';
-import axios from '../api/axios';
+import axios from '../utils/axios';
 
 const requests = [axios.get('/slots.json'), axios.get('/workers.json'), axios.get('/available-workers.json')];
 
@@ -20,19 +24,7 @@ const useSlotInfo = () => {
         const { workers } = workersData || {};
         const { slots } = slotsData || {};
 
-        const getWorkerInfo = workerIds => {
-          return workerIds.map(id => workers.find(({ id: workerId }) => workerId === id));
-        };
-
-        const combined = available.map(({ slot_id, availableWorker_ids }) => {
-          const currentSlot = slots.find(({ id }) => id === slot_id);
-          const currentWorkers = getWorkerInfo(availableWorker_ids);
-
-          return {
-            slot: currentSlot,
-            workers: currentWorkers,
-          };
-        });
+        const combined = getCombinedData(available, slots, workers);
 
         setSlotInfo(combined);
         dispatch(setTableInfo(combined));

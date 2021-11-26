@@ -14,10 +14,6 @@
   background-color: $c-popup-overlay;
   cursor: pointer;
   position: absolute;
-
-  &:focus {
-    background-color: $c-popup-overlay-focused;
-  }
 }
 
 .popup-overlay,

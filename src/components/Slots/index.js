@@ -1,13 +1,18 @@
-import useSlotInfo from '../../hooks/useSlotInfo';
+// libraries
+import { useTranslation } from 'react-i18next';
+// components
 import Slot from './Slot';
 import Error from '../common/Error';
 import Spinner from '../common/Spinner';
+// hooks
+import useSlotInfo from '../../hooks/useSlotInfo';
 
-const Table = () => {
+const Slots = () => {
+  const { t } = useTranslation('slots');
   const [slotInfo, isFetching, error] = useSlotInfo();
 
   if (isFetching) {
-    return <Spinner loadingText="Loading available slots..." />;
+    return <Spinner loadingText={t('spinner')} />;
   }
 
   const content = error ? (
@@ -22,10 +27,10 @@ const Table = () => {
 
   return (
     <>
-      <h2>Available Slots</h2>
+      <h1 className="page-title">{t('header')}</h1>
       {content}
     </>
   );
 };
 
-export default Table;
+export default Slots;

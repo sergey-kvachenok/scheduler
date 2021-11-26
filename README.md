@@ -16,6 +16,7 @@ A user can see his orders in the basket. If a user had chosen more than one work
 A user can remove the slot (with all workers) from the basket or remove a worker from the slot. Each deletion operation opens a confirmation popup before deletion.
 If the user had chosen the worker in the current slot he can't choose him again as the button would be disabled.
 The information inside the basket is saved between page reloads.
+The app uses `scss` and `styled-components`. It's done for demonstration purposes and it's not a techical solution (we need to choose something one for real project.)
 
 # Claudfront deployment
 https://d2ts9z681d0t3n.cloudfront.net/

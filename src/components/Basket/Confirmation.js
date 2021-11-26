@@ -1,4 +1,6 @@
+// libraries
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const Container = styled.div`
   text-align: center;
@@ -19,14 +21,27 @@ const Container = styled.div`
 `;
 
 const Confirmation = ({ text, confirm, cancel }) => {
+  const { t } = useTranslation('common');
+
   return (
     <Container>
-      <h2>{text}</h2>
-      <button data-testid="submit-button" className="default-button confirmation primary" onClick={confirm}>
-        Confirm
+      <h3 className="modal-title">{text}</h3>
+
+      <button
+        aria-label="Confirm action"
+        data-testid="submit-button"
+        className="default-button confirmation primary"
+        onClick={confirm}
+      >
+        {t('confirm')}
       </button>
-      <button data-testid="cancel-button" className="default-button secondary" onClick={cancel}>
-        Cancel
+      <button
+        aria-label="Cancel action"
+        data-testid="cancel-button"
+        className="default-button secondary"
+        onClick={cancel}
+      >
+        {t('cancel')}
       </button>
     </Container>
   );

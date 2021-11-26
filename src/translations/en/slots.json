@@ -1,0 +1,9 @@
+{
+  "spinner": "Loading available slots...",
+  "header": "Available Slots",
+  "workers": {
+    "title": "Available workers for chosen slot",
+    "basketLink": "Go to Basket",
+    "rating": "Rating:"
+  }
+}

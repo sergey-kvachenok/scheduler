@@ -12,18 +12,19 @@
     display: flex;
     height: 35px;
     width: 35px;
+    transition: background-color 0.3s linear;
 
     &:hover,
     &:active,
     &:focus {
       background-color: $c-light-violet;
-
       .basket-icon {
-        fill: $c-white;
+        fill: $c-violet;
       }
     }
 
     .basket-icon {
+      fill: $c-white;
       margin: auto;
     }
   }

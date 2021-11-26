@@ -1,0 +1,9 @@
+{
+  "header": "Basket",
+  "emptyBasket": "You basket is still empty",
+  "pricePerPerson": "Price per person:",
+  "totalPerSlot": "Total per slot:",
+  "booked": "You have booked:",
+  "removeSlotConfirmation": "Would you like to delete {{time}} slot with all workers from the basket?",
+  "removeWorkerConfirmation": "Would you like to delete {{name}} from the slot?"
+}
