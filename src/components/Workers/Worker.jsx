@@ -2,6 +2,7 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
+import Rating from '@mui/material/Rating';
 // components
 import { addWorker, removeWorker } from '../../store/basketSlice';
 
@@ -13,7 +14,7 @@ const Worker = ({ worker, slotId }) => {
   const currentSlotStoreInfo = slots.find(({ id }) => id === slotId) || {};
   const currentSlotStoreWorkers = currentSlotStoreInfo?.workers || [];
 
-  const { isNew, name, rating, id } = worker;
+  const { name, rating, id } = worker;
   const isWorkerInBasket = currentSlotStoreWorkers.includes(id);
 
   const buttonLabel = isWorkerInBasket ? 'Remove' : 'Add';
@@ -31,6 +32,18 @@ const Worker = ({ worker, slotId }) => {
         <div>{name}</div>
         <div className="secondary-text rating">
           {`${t('workers.rating')} `}
+          <Rating
+            name="hover-feedback"
+            style={{
+              fontSize: '12px',
+              margin: '0 5px',
+            }}
+            className="sizeSmall"
+            value={Number(rating)}
+            precision={0.1}
+            readOnly
+          />
+
           <span
             className={classnames({
               low: rating <= 3,

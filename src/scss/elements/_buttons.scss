@@ -13,6 +13,7 @@
 .primary {
   background-color: $c-violet;
   color: $c-white;
+  transition: background-color $t-hover linear;
 
   &:hover,
   &:active,
@@ -23,6 +24,7 @@
 
 .secondary {
   border: 1px solid $c-gray;
+  transition: background-color $t-hover linear;
 
   &:hover,
   &:active {

@@ -6,6 +6,8 @@ import styled from 'styled-components';
 // components
 import Item from './Item';
 import { ReactComponent as ArrowIcon } from '../../assets/icons/arrow-left.svg';
+// constants
+import { breakpoints } from '../../constants/theme';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -14,9 +16,18 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
+  @media (max-width: ${breakpoints.xsMax}) {
+    border-radius: 50%;
+    display: block;
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  @media (min-width: ${breakpoints.sm}) {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
 
   svg {
     height: 16px;
@@ -30,8 +41,14 @@ const Button = styled.button`
   }
 
   .text {
-    font-size: 16px;
-    margin-left: 5px;
+    @media (max-width: ${breakpoints.xsMax}) {
+      display: none;
+    }
+
+    @media (min-width: ${breakpoints.sm}) {
+      font-size: 16px;
+      margin-left: 5px;
+    }
   }
 `;
 

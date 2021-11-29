@@ -29,7 +29,6 @@ export const basketSlice = createSlice({
       }
     },
     removeWorker: (state, action) => {
-      console.log('action', action);
       const { slotId, workerId } = action.payload;
 
       const currentSlotIndex = state.slots.findIndex(slot => slot.id === slotId);

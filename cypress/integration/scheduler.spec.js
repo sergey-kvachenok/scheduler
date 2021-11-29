@@ -15,24 +15,31 @@ const deleteSlotConfirmation = time => `Would you like to delete ${time} slot wi
 const popupOverlay = '.popup-overlay';
 const basketIconSelector = '.basket-icon';
 
-let combined;
-let workersToAdd;
-let testSlot;
-
-describe('Scheduler', () => {
-  before(async () => {
-    const requests = [axios('/slots.json'), axios('/workers.json'), axios('/available-workers.json')];
-
+const getData = async () => {
+  const requests = [axios('/slots.json'), axios('/workers.json'), axios('/available-workers.json')];
+  try {
     const [{ data: slotsData }, { data: workersData }, { data: availableData }] = await Promise.all(requests);
 
     const available = availableData['available-workers'] || {};
     const { workers } = workersData || {};
     const { slots } = slotsData || {};
 
-    combined = getCombinedData(available, slots, workers);
-    testSlot = combined[2];
-    workersToAdd = testSlot.workers.slice(0, 4).map(({ name }) => name);
-    console.log('combined', combined);
+    const combined = getCombinedData(available, slots, workers);
+    const testSlot = combined[2];
+    const workersToAdd = testSlot.workers.slice(0, 4).map(({ name }) => name);
+
+    return [testSlot, workersToAdd];
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+let workersToAdd;
+let testSlot;
+
+describe('Scheduler', () => {
+  before(async () => {
+    [testSlot, workersToAdd] = await getData();
   });
 
   it('allow to add workers to the basket', () => {

@@ -13,6 +13,11 @@ const Portal = ({ children }) => {
     };
   }, [container]);
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => (document.body.style.overflow = 'unset');
+  }, []);
+
   return ReactDOM.createPortal(children, container);
 };
 
