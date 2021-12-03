@@ -6,6 +6,7 @@
 //  03. Medium screen / tablet horizontal orientation
 //  04. Desktop
 //  05. Provide a maximum, so media queries don't overlap when required
+//  06. Hover
 //  -----------------------------------------------------------------------------
 
 //  01. Extra small screen
@@ -28,3 +29,6 @@ $screen-lg-min: $screen-lg;
 $screen-xs-max: ($screen-sm-min - 1);
 $screen-sm-max: ($screen-md-min - 1);
 $screen-md-max: ($screen-lg-min - 1);
+
+// 06. Hover
+$hover: hover;

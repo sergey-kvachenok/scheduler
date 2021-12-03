@@ -9,6 +9,7 @@ import './scss/index.scss';
 import store, { persistor } from './store';
 import { theme } from './constants/theme';
 import './utils/i18n';
+import sw from './serviceWorker';
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
@@ -23,4 +24,5 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
+sw();
 reportWebVitals();

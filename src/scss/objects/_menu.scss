@@ -14,7 +14,12 @@
     width: 35px;
     transition: background-color $t-hover linear;
 
-    &:hover,
+    @media ($hover) {
+      &:hover {
+        background-color: $c-light-violet;
+      }
+    }
+
     &:active,
     &:focus {
       background-color: $c-light-violet;

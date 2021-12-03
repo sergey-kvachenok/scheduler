@@ -29,7 +29,8 @@ const useSlotInfo = () => {
         setSlotInfo(combined);
         dispatch(setTableInfo(combined));
       } catch (error) {
-        setError(error);
+        const formattedError = !error.status ? { message: 'You are offline' } : error;
+        setError(formattedError);
       } finally {
         setFetching(false);
       }

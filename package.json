@@ -25,7 +25,8 @@
     "react-scripts": "4.0.3",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.3",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "serverless-single-page-app-plugin": "./serverless-single-page-app-plugin"
   },
   "resolutions": {
     "styled-components": "^5"

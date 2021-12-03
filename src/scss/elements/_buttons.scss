@@ -15,9 +15,13 @@
   color: $c-white;
   transition: background-color $t-hover linear;
 
-  &:hover,
-  &:active,
-  &:focus {
+  @media ($hover) {
+    &:hover {
+      background-color: $c-light-violet;
+    }
+  }
+
+  &:active {
     background-color: $c-light-violet;
   }
 }
@@ -26,7 +30,13 @@
   border: 1px solid $c-gray;
   transition: background-color $t-hover linear;
 
-  &:hover,
+  @media ($hover) {
+    &:hover {
+      background-color: $c-light-violet;
+      color: $c-white;
+    }
+  }
+
   &:active {
     background-color: $c-light-violet;
     color: $c-white;
