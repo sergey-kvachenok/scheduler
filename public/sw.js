@@ -54,3 +54,19 @@ async function networkFirst(url) {
     return cached;
   }
 }
+
+this.addEventListener('notificationclick', async event => {
+  console.log('event', event);
+  const { notification, action } = event;
+
+  if (action === 'confirm') {
+    console.log('Confirm was chosen');
+    notification.close();
+  } else {
+    notification.close();
+  }
+});
+
+this.addEventListener('notificationclose', async event => {
+  console.log('Notification was close');
+});

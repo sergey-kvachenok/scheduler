@@ -24,9 +24,10 @@
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
     "redux-persist": "^6.0.0",
+    "serverless-single-page-app-plugin": "./serverless-single-page-app-plugin",
     "styled-components": "^5.3.3",
-    "web-vitals": "^1.0.1",
-    "serverless-single-page-app-plugin": "./serverless-single-page-app-plugin"
+    "web-push": "^3.4.5",
+    "web-vitals": "^1.0.1"
   },
   "resolutions": {
     "styled-components": "^5"
@@ -34,6 +35,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "web-push": "web-push",
     "test": "react-scripts test --verbose",
     "cypress": "cypress open",
     "eject": "react-scripts eject",
