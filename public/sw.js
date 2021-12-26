@@ -61,11 +61,32 @@ async function networkFirst(url) {
 
 this.addEventListener('notificationclick', async event => {
   const { notification, action } = event;
+  const { data } = notification || {};
 
-  if (action === 'confirm') {
-    notification.close();
-  } else {
-    notification.close();
+  try {
+    if (action === 'confirm') {
+      notification.close();
+    } else {
+      const clients = await this.clients.matchAll();
+      const openClient = clients.find(client => client.visibilityState === 'visible');
+
+      let url = this.location.origin;
+
+      if (data?.openUrl) {
+        url += data?.openUrl;
+      }
+
+      if (openClient) {
+        openClient.navigate(url);
+        openClient.focus();
+      } else {
+        const windowClient = await this.clients.openWindow(url);
+        windowClient.focus();
+      }
+      notification.close();
+    }
+  } catch (err) {
+    console.log('err', err);
   }
 });
 
@@ -74,16 +95,15 @@ this.addEventListener('notificationclose', async event => {
 });
 
 this.addEventListener('push', async event => {
-  console.log('Push notification', event);
   let data = { title: 'From browser', content: 'Something exiting!' };
 
   if (event.data) {
     data = JSON.parse(event.data.text());
   }
 
-  console.log('data', data);
   const options = {
     body: data.content,
+    data: data.data || {},
     icon: '/icon-192x192.png',
     image: '/icon-192x192.png',
     dir: 'rtl',
@@ -97,5 +117,7 @@ this.addEventListener('push', async event => {
     ],
   };
 
-  event.waitUntil(this.registration.showNotification(data.title, options));
+  // event.waitUntil(
+  await this.registration.showNotification(data.title, options);
+  // );
 });

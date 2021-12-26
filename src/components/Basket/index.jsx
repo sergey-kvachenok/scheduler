@@ -90,12 +90,6 @@ const Basket = () => {
     // Imitate that user bought the slots. Trigger the server to send a push notification
     try {
       await axios.post(`${process.env.REACT_APP_BACKEND_URL}/basket/purchase`);
-      // await fetch(`${process.env.REACT_APP_BACKEND_URL}/basket/purchase`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-type': 'application/json; charset=UTF-8',
-      //   },
-      // });
       console.log('purchased');
     } catch (error) {
       console.log('error', error);
