@@ -8,6 +8,8 @@ import Item from './Item';
 import { ReactComponent as ArrowIcon } from '../../assets/icons/arrow-left.svg';
 // constants
 import { breakpoints } from '../../constants/theme';
+// utils
+import axios from 'axios';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -84,6 +86,22 @@ const Basket = () => {
     navigate('/');
   };
 
+  const purchase = async () => {
+    // Imitate that user bought the slots. Trigger the server to send a push notification
+    try {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/basket/purchase`);
+      // await fetch(`${process.env.REACT_APP_BACKEND_URL}/basket/purchase`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-type': 'application/json; charset=UTF-8',
+      //   },
+      // });
+      console.log('purchased');
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   const slotInfo = getSlotInfo(slots, data);
 
   const content = slotInfo?.length ? (
@@ -101,6 +119,10 @@ const Basket = () => {
       <Container>
         <h1 className="page-title header">{t('header')}</h1>
         {content}
+
+        <button data-testid="purchase-button" onClick={purchase} className="default-button primary">
+          <span className="text">{t('purchase')}</span>
+        </button>
       </Container>
     </>
   );
