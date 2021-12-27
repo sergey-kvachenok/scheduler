@@ -95,6 +95,7 @@ this.addEventListener('notificationclose', async event => {
 });
 
 this.addEventListener('push', async event => {
+  console.log('event', event);
   let data = { title: 'From browser', content: 'Something exiting!' };
 
   if (event.data) {
