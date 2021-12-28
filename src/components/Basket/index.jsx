@@ -93,7 +93,7 @@ const Basket = () => {
       await axios.post(`${process.env.REACT_APP_BACKEND_URL}/basket/purchase`);
       console.log('purchased');
     } catch (error) {
-      console.log('error', error);
+      console.log('error', error, error.status, error.message);
     }
   };
 

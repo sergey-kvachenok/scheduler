@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+// const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 const configureOptions = message => ({
   body: message,
   icon: '/icon-192x192.png',
@@ -20,29 +22,34 @@ export const configureSubscription = async () => {
   if (!navigator.serviceWorker) return;
 
   try {
-    Notification.requestPermission(result => {
-      console.log('result', result);
+    Notification.requestPermission(async result => {
       if (result !== 'granted') {
         console.log('No result granted');
         return;
       }
     });
 
+    console.log('navigator.serviceWorker', navigator.serviceWorker);
     const register = await navigator.serviceWorker.ready;
+    console.log('register', register);
+    let pushManager = register?.pushManager;
 
-    let subscription = await register.pushManager.getSubscription();
-
+    // if (!pushManager && isSafari) {
+    //   pushManager = window.safari.pushNotification;
+    // }
+    console.log('pushManager', pushManager);
+    let subscription = await pushManager.getSubscription();
+    console.log('subscription', subscription);
     if (!subscription) {
-      subscription = await register.pushManager.subscribe({
+      subscription = await pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: process.env.REACT_APP_VAPID_PUBLIC_KEY,
       });
     }
-
     await sendRegistration(subscription);
     displayConfirmationNotification();
   } catch (error) {
-    console.log('ERROR', error.status, error.message);
+    console.log('HORROR', error);
   }
 };
 
